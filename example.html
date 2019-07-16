@@ -1,0 +1,64 @@
+<html>
+
+<head>
+	<title>Leaflet with openstreetmap information usage example</title>
+			
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+
+	<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+   crossorigin=""></script>
+
+	<script src="file:pois.jsonp"></script>
+</head>
+
+<body>
+
+	<h1>Olá Mundo Cruel!</h1>
+	<div id="mapid" style="width: 600px; height: 400px; position: relative;"></div>
+
+    <script>
+		var mymap = L.map('mapid').setView([38.9601827, -9.4175394], 13);
+
+		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+			attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+			maxZoom: 18,
+			id: 'mapbox.streets',
+			accessToken: ''
+		}).addTo(mymap);
+
+		jsonstr.forEach(function(node) {
+			
+			var marker = L.marker([node['@attributes'].lat, node['@attributes'].lon]).addTo(mymap);
+			
+			var description;
+			var tags = node.tag;
+			
+			if (tags['@attributes']) {
+				description = '<b>' + tags['@attributes'].k + '</b>: ' + tags['@attributes'].v;
+
+				marker.bindPopup(description).openPopup();
+			} else {
+
+				description = '';
+
+				//Build description from multiple attribute nodes
+				tags.forEach(function(tag) {
+				
+					if(tag['@attributes']){
+						description += '<b>' + tag['@attributes'].k + '</b>: ' + tag['@attributes'].v + '<br />';
+					}
+				});
+
+				//Binds the description to the mark
+				marker.bindPopup(description).openPopup();
+			}
+
+		});
+	</script>
+
+</body>
+
+</html>
