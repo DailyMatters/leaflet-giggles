@@ -1,24 +1,39 @@
 #!/usr/bin/env bash
 
-# VG Ericeira Block
-# Leaving Highways and nodes created by JOSM outside
-wget --output-document=poi.php 'http://overpass-api.de/api/interpreter?data=node["highway"!~"."]["created_by"!="JOSM"](38.956,-9.421,38.969,-9.402);out;'
+declare -A HOTELS
+HOTELS[Ericeira]='http://overpass-api.de/api/interpreter?data=node["highway"!~"."]["created_by"!="JOSM"](38.956,-9.421,38.969,-9.402);out;'
+HOTELS[Tavira]='http://overpass-api.de/api/interpreter?data=node["highway"!~"."]["created_by"!="JOSM"](37.111051,-7.661719,37.128913,-7.618461);out;'
 
-TOPSTRING=$'<?php\n\n$xmlstr=<<<XML'
-ENDSTRING=$'XML;\n\n?>'
+for hotel in "${!HOTELS[@]}"
+do
+  echo "Key  : $hotel"
+  echo "Value: ${HOTELS[$hotel]}"
+  echo "String: $hotel.php"
 
-# Add php declarations to the file
-echo "$TOPSTRING" | cat - poi.php > temp && mv temp poi.php
-echo "$ENDSTRING" >> poi.php
+  wget --output-document=$hotel.php ${HOTELS[$hotel]}
 
-PHP=`which php`
-$PHP parse.php
+  TOPSTRING=$'<?php\n\n$xmlstr=<<<XML'
+  ENDSTRING=$'XML;\n\n?>'
 
-# Add javascript declaration to the json file and save it as jsonp
+  # Add php declarations to the file
+  echo "$TOPSTRING" | cat - $hotel.php > temp && mv temp $hotel.php
+  echo "$ENDSTRING" >> $hotel.php
 
-FILE=pois.json
+  if [ ! -d "hotels" ] 
+	  then mkdir hotels
+  fi
 
-if [ -f "$FILE" ]; then
-	echo 'jsonstr = ' | cat - pois.json > temp && mv temp pois.jsonp
-	echo ';' >> pois.jsonp
-fi
+  mv $hotel.php 'hotels/'$hotel.php
+
+  PHP=`which php`
+  $PHP parse.php
+
+  # Add javascript declaration to the json file and save it as jsonp
+  FILE='hotels/'$hotel.json
+
+  if [ -f "$FILE" ]; then
+  	  echo 'jsonstr = ' | cat - 'hotels/'$hotel.json > temp && mv temp 'hotels/'$hotel.jsonp
+	  echo ';' >> 'hotels/'$hotel.jsonp
+  fi
+done
+
