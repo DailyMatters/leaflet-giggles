@@ -6,9 +6,9 @@ HOTELS[Tavira]='http://overpass-api.de/api/interpreter?data=node["highway"!~"."]
 
 for hotel in "${!HOTELS[@]}"
 do
-  echo "Key  : $hotel"
-  echo "Value: ${HOTELS[$hotel]}"
-  echo "String: $hotel.php"
+  echo "Key    : $hotel"
+  echo "Value  : ${HOTELS[$hotel]}"
+  echo "String : $hotel.php"
 
   wget --output-document=$hotel.php ${HOTELS[$hotel]}
 

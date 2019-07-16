@@ -19,7 +19,6 @@ foreach (glob("hotels/*.php") as $filename)
 	//Save tags somewhere else
 	$filename_without_extension = pathinfo($filename, PATHINFO_FILENAME);
 	file_put_contents('hotels/' . $filename_without_extension . '.json', $result_array);
-
 }
 
 ?>
