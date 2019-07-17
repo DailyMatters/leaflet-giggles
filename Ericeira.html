@@ -11,7 +11,8 @@
    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
    crossorigin=""></script>
 
-	<script src="file:hotels/Ericeira.jsonp"></script>
+	<!-- script src="file:hotels/Ericeira.jsonp"></script -->
+	<script src="file:hotels/ClubeCampo.jsonp"></script>
 </head>
 
 <body>
@@ -20,7 +21,8 @@
 	<div id="mapid" style="width: 600px; height: 400px; position: relative;"></div>
 
     <script>
-		var mymap = L.map('mapid').setView([38.9601827, -9.4175394], 13);
+		//var mymap = L.map('mapid').setView([38.9601827, -9.4175394], 13);
+		var mymap = L.map('mapid').setView([37.8891, -8.0205], 13);
 
 		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
 			attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
