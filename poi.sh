@@ -34,6 +34,10 @@ do
   if [ -f "$FILE" ]; then
   	  echo 'jsonstr = ' | cat - 'hotels/'$hotel.json > temp && mv temp 'hotels/'$hotel.jsonp
 	  echo ';' >> 'hotels/'$hotel.jsonp
+	  #rm 'hotels/'$hotel.json
   fi
 done
+
+# Remove .json files because they have no use
+rm 'hotels/'*.json
 

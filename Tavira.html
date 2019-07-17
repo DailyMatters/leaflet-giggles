@@ -11,22 +11,22 @@
    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
    crossorigin=""></script>
 
-	<script src="file:hotels/Ericeira.jsonp"></script>
+	<script src="file:hotels/Tavira.jsonp"></script>
 </head>
 
 <body>
 
-	<h1>Olá Mundo Cruel!</h1>
+	<h1>Olá Gente Cruel de Tavira!</h1>
 	<div id="mapid" style="width: 600px; height: 400px; position: relative;"></div>
 
     <script>
-		var mymap = L.map('mapid').setView([38.9601827, -9.4175394], 13);
+		var mymap = L.map('mapid').setView([37.1234, 7.6457], 13);
 
 		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
 			attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
 			maxZoom: 18,
 			id: 'mapbox.streets',
-			accessToken: ''
+			accessToken: 'pk.eyJ1IjoiZGFpbHltYXR0ZXJzIiwiYSI6ImNqeTQ2cmdpcjEzZ2czaHM3d3d2aDVrM2wifQ.jbTdlYyBl_6ZBmI6mOOU-Q'
 		}).addTo(mymap);
 
 		jsonstr.forEach(function(node) {
